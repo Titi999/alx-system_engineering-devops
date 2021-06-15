@@ -1,1 +1,1 @@
-** This is the readme file ofr alx_engineering_devops
+** This is the readme file for alx-system_engineering_devops- Script writing**
