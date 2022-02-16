@@ -1,21 +1,33 @@
 #!/usr/bin/env bash
-# Installs Nginx with the following configurations:
-#+    Listens on port 80.
-#+    Returns a page containing "Hello World
-#++    at the root with a curl GET request.
+#install ngix and put holberton inside
 
-apt-get update
-apt-get install -y nginx
-
-mkdir /etc/nginx/html
-touch /etc/nginx/html/index.html
-echo "Hello World" > /etc/nginx/html/index.html
-printf %s "server {
-     listen      80 default_server;
-     listen      [::]:80 default_server;
-     root        /etc/nginx/html;
-     index       index.html index.htm;
+sudo apt-get update -y && \
+sudo apt-get install -y nginx
+if [ $? -eq 0 ]
+then
+    echo -e \
+"http {
+    root /var/www/holberton;
+    index index.html;
+    server {
+        listen 80;
+        location \ {
+        }
+    }
 }
-" > /etc/nginx/sites-available/default
-
-service nginx restart
+events {
+}" > /etc/nginx/nginx.conf
+    mkdir -p /var/www/holberton
+    echo "Hello World" > \
+	/var/www/holberton/index.html
+    service nginx start
+    if [ $? -ne 0 ]
+    then
+	"Problem starting nginx"
+	exit 1
+    fi
+else
+    echo "Could not install nginx"
+    exit 1
+fi
+exit 0
